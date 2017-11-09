@@ -1,5 +1,17 @@
 // Enemies our player must avoid
 var img;
+var src;
+
+//when player choosen close modal and use that player selected
+  $("li").click(function(char){
+    src = $(this).children().attr("src");
+    img = ' + src + ';
+    player.sprite = src;
+    $("#modal-start").css("display", "none");
+    $("#modal-content").css("display", "none");
+  });
+
+
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -38,19 +50,10 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(x, y, speed) {
-  var src;
   this.x = x;
   this.y = y;
   this.speed = speed;
-  img = this.sprite = ' + src + ';
-
-  //when player choosen close modal and use that player selected
-    $("li").click(function(char){
-      src = $(this).children().attr("src");
-      alert(src);
-      $("#modal-start").css("display", "none");
-      $("#modal-content").css("display", "none");
-    });
+  this.sprite = "images/char-boy.png";
 
 }
 
@@ -60,7 +63,7 @@ Player.prototype.update = function () {
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  
+
 }
 
 Player.prototype.handleInput = function(keyPress) {
