@@ -1,3 +1,4 @@
+"use strict";
 // Enemies our player must avoid
 var img;
 var src;
@@ -38,6 +39,48 @@ Enemy.prototype.update = function(dt) {
     }
 
     // Check for collision with enemies or barrier-walls
+    var checkCollision = function(anEnemy) {
+        // check for collision between enemy and player
+        if (
+            player.y + 131 >= anEnemy.y + 90 &&
+            player.x + 25 <= anEnemy.x + 88 &&
+            player.y + 73 <= anEnemy.y + 135 &&
+            player.x + 76 >= anEnemy.x + 11) {
+
+          restartEnemies();
+            player.x = 202.5;
+            player.y = 383;
+        }
+
+        // check for player reaching top of canvas and winning the game
+        //if player does then add one to level also add another enemy
+        if (player.y < 43) {
+            player.x = 202.5;
+            player.y = 383;
+
+
+            level.innerHTML++;
+            var newEnemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 250);
+            allEnemies.push(newEnemy);
+
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 505, 171);
+
+        }
+
+        // check if player runs into left, bottom, or right canvas walls
+        // prevent player from moving beyond canvas wall boundaries
+        if (player.y > 383 ) {
+            player.y = 383;
+        }
+        if (player.x > 402.5) {
+            player.x = 402.5;
+        }
+        if (player.x < 2.5) {
+            player.x = 2.5;
+        }
+    };
+
     checkCollision(this);
 };
 
@@ -55,16 +98,16 @@ var Player = function(x, y, speed) {
   this.speed = speed;
   this.sprite = "images/char-boy.png";
 
-}
+};
 
 Player.prototype.update = function () {
   //not needed
-}
+};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
-}
+};
 
 Player.prototype.handleInput = function(keyPress) {
     if (keyPress == 'left') {
@@ -82,47 +125,6 @@ Player.prototype.handleInput = function(keyPress) {
     console.log('keyPress is: ' + keyPress);
 };
 
-var checkCollision = function(anEnemy) {
-    // check for collision between enemy and player
-    if (
-        player.y + 131 >= anEnemy.y + 90
-        && player.x + 25 <= anEnemy.x + 88
-        && player.y + 73 <= anEnemy.y + 135
-        && player.x + 76 >= anEnemy.x + 11) {
-
-      restartEnemies();
-        player.x = 202.5;
-        player.y = 383;
-    }
-
-    // check for player reaching top of canvas and winning the game
-    //if player does then add one to level also add another enemy
-    if (player.y < 43) {
-        player.x = 202.5;
-        player.y = 383;
-
-
-        level.innerHTML++;
-        var newEnemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 250);
-        allEnemies.push(newEnemy);
-
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, 505, 171);
-
-    }
-
-    // check if player runs into left, bottom, or right canvas walls
-    // prevent player from moving beyond canvas wall boundaries
-    if (player.y > 383 ) {
-        player.y = 383;
-    }
-    if (player.x > 402.5) {
-        player.x = 402.5;
-    }
-    if (player.x < 2.5) {
-        player.x = 2.5;
-    }
-};
 
 //creating a Level count
 var level = document.querySelector("#level");
@@ -138,7 +140,7 @@ var restartEnemies = function(){
   var enemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 250);
   allEnemies.push(enemy);
   level.innerHTML = 1;
-}
+};
 restartEnemies();
 
 //game over modal

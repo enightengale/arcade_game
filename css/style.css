@@ -1,13 +1,10 @@
 *{
-
   font-family: 'Luckiest Guy', cursive;
-
 }
 
 
 body {
     text-align: center;
-
 }
 
 
@@ -25,34 +22,34 @@ body {
   transform: translate(-50%, -50%);
 }
 
+
 .modal-content {
-    margin: auto;
-    background-color: #fefefe;
-    padding: 20px;
-    width: 80%; /* Could be more or less, depending on screen size */
+  margin: auto;
+  background-color: #fefefe;
+  padding: 20px;
+  width: 80%; /* Could be more or less, depending on screen size */
 }
-li{
+
+
+li {
   list-style: none;
   cursor: pointer;
 }
 
-.row {
 
+.row {
   width: 100%;
   height: auto;
   display: inline-flex;
-
 }
+
 
 .col-12 {
-
   width: 100%;
-
 }
 
-.col-3 {
 
+.col-3 {
   width: 33.3%;
   text-align: center;
-
 }
